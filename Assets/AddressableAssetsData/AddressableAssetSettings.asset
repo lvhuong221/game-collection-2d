@@ -15,7 +15,7 @@ MonoBehaviour:
   m_DefaultGroup: 13836324c39ccff45bb534ae6b9cca93
   m_currentHash:
     serializedVersion: 2
-    Hash: 00000000000000000000000000000000
+    Hash: a88bcfaa6f356ff5882704b69646244e
   m_OptimizeCatalogSize: 0
   m_BuildRemoteCatalog: 0
   m_BundleLocalCatalog: 0
@@ -46,6 +46,11 @@ MonoBehaviour:
   m_GroupAssets:
   - {fileID: 11400000, guid: 93fe834092a99704b80289b261e5a74a, type: 2}
   - {fileID: 11400000, guid: 07acf443e5ec94e41a31661908311c59, type: 2}
+  - {fileID: 11400000, guid: f5d0681affaa7744ca6e72bd95fc0177, type: 2}
+  - {fileID: 11400000, guid: 7472fc6bacc2e7a4a8145d71a688127b, type: 2}
+  - {fileID: 11400000, guid: a33239056b2f3354abfb86a2dfde2fb5, type: 2}
+  - {fileID: 11400000, guid: a90140ff7a7f80149852d2d3b29b416e, type: 2}
+  - {fileID: 11400000, guid: 43a45f2cb1687ed4aa94a10cda8f33d0, type: 2}
   m_BuildSettings:
     m_CompileScriptsInVirtualMode: 0
     m_CleanupStreamingAssetsAfterBuilds: 1
@@ -87,6 +92,8 @@ MonoBehaviour:
   m_LabelTable:
     m_LabelNames:
     - default
+    - Locale
+    - MiniGame
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: f41c347ae5b8f8b4186bbbf52ad0b64a, type: 2}

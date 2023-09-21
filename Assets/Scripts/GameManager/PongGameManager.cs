@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class PongGameManager : MonoBehaviour
 {
+    [SerializeField] InputReader _inputReader;
     [SerializeField] PongBall pongBall;
     [SerializeField] GameEvent playerOneScoreEvent;
     [SerializeField] GameEvent playerTwoScoreEvent;
@@ -22,6 +23,7 @@ public class PongGameManager : MonoBehaviour
         playerTwoScoreEvent?.AddListener(OnPlayerTwoScore);
 
         pongBall.Reset();
+        _inputReader.EnableGameplayInput();
     }
 
     private void OnDestroy()

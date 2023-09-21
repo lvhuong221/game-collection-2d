@@ -5,13 +5,6 @@ using UnityEngine;
 public class PongPlayerOneController : PongPlayerMovement
 {
     [SerializeField] private InputReader _inputReader;
-    [SerializeField] private Transform topPoint;
-    [SerializeField] private Transform bottomPoint;
-    [SerializeField] private float speed = 5;
-
-    private Vector2 moveVector;
-    private float topLimit = 2.9f, bottomLimit = -2.9f;
-    private float moveDelta = 0;
 
     private void Start()
     {

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,7 @@ public class InputReader : ScriptableObject, GameInput.IGameplayActions
 {
     public event UnityAction<Vector2> PlayerOneMoveEvent = delegate { };
     public event UnityAction<Vector2> PlayerTwoMoveEvent = delegate { };
+    public event UnityAction PauseEvent = delegate { };
     public event UnityAction ShootEvent = delegate { };
 
     private GameInput _gameInput;
@@ -22,7 +24,6 @@ public class InputReader : ScriptableObject, GameInput.IGameplayActions
 
             _gameInput.Gameplay.SetCallbacks(this);
         }
-        _gameInput.Gameplay.Enable();
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -39,5 +40,20 @@ public class InputReader : ScriptableObject, GameInput.IGameplayActions
     {
         PlayerTwoMoveEvent.Invoke(context.ReadValue<Vector2>());
 
+    }
+
+    public void OnPause(InputAction.CallbackContext context)
+    {
+        PauseEvent.Invoke();
+    }
+
+    public void DisableAllInput()
+    {
+        _gameInput.Disable();
+    }
+
+    public void EnableGameplayInput()
+    {
+        _gameInput.Enable();
     }
 }
