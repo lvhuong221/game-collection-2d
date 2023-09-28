@@ -9,21 +9,34 @@ public class PongPlayerMovement : MonoBehaviour
     [SerializeField] private float speed = 5;
 
     private Vector2 moveVector;
-    private float topLimit = 2.9f, bottomLimit = -2.9f;
+    private Vector2 lastFramePosition;
+    private float topLimit = 4f, bottomLimit = -4f;
     private float moveDelta = 0;
+
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        lastFramePosition = transform.position;
     }
 
     private void Update()
     {
+        BeforeMove();
         Move();
+        AfterMove();
+    }
+
+    protected virtual void BeforeMove(){ }
+
+    protected virtual void AfterMove() 
+    {
     }
 
     private void Move()
     {
+        lastFramePosition = transform.position;
+
         moveDelta = speed * moveVector.y * Time.deltaTime;
         if (moveVector == Vector2.zero)
         {
@@ -45,5 +58,10 @@ public class PongPlayerMovement : MonoBehaviour
     protected void UpdateMoveVector(Vector2 moveVector)
     {
         this.moveVector = moveVector;
+    }
+
+    public Vector2 VelocityVector()
+    {
+        return (Vector2)transform.position - lastFramePosition;
     }
 }

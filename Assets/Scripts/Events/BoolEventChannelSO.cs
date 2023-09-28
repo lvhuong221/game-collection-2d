@@ -13,6 +13,12 @@ public class BoolEventChannelSO : DescriptionBaseSO
 
     public void Raise(bool value)
     {
-        OnEventRaised?.Invoke(value);
+        if (OnEventRaised != null)
+        {
+            OnEventRaised.Invoke(value);
+        } else
+        {
+            Debug.LogWarning("A bool event was requested, but nobody picked it up. ", this);
+        }
     }
 }

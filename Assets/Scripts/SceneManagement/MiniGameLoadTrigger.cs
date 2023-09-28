@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class MiniGameLoadTrigger : MonoBehaviour
 {
     [SerializeField] MiniGameSO _miniGameToLoad = default;
-    [SerializeField] LoadEventChannelSO _loadMiniGameChannel;
+    [SerializeField] LoadSceneEventChannelSO _loadMiniGameChannel;
     [SerializeField] Button _triggerButton;
 
     private void OnEnable()

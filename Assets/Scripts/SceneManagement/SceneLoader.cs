@@ -14,8 +14,8 @@ public class SceneLoader : MonoBehaviour
     [SerializeField] private InputReader _inputReader;
 
     [Header("Listen to")]
-    [SerializeField] private LoadEventChannelSO _loadMenuEvent;
-    [SerializeField] private LoadEventChannelSO _miniGameEvent;
+    [SerializeField] private LoadSceneEventChannelSO _loadMenuEvent;
+    [SerializeField] private LoadSceneEventChannelSO _miniGameEvent;
 
     [Header("Broadcast")]
     [SerializeField] private BoolEventChannelSO _toggleLoadingScreen = default;

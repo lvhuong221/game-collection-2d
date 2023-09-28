@@ -25,10 +25,10 @@ public class InitialisationLoader : MonoBehaviour
 
     private void LoadEventChannel(AsyncOperationHandle<UnityEngine.ResourceManagement.ResourceProviders.SceneInstance> obj)
     {
-        _menuLoadChannel.LoadAssetAsync<LoadEventChannelSO>().Completed += InitialisationLoader_Completed;
+        _menuLoadChannel.LoadAssetAsync<LoadSceneEventChannelSO>().Completed += InitialisationLoader_Completed;
     }
 
-    private void InitialisationLoader_Completed(AsyncOperationHandle<LoadEventChannelSO> handle)
+    private void InitialisationLoader_Completed(AsyncOperationHandle<LoadSceneEventChannelSO> handle)
     {
         handle.Result.Raise(_menuToLoad, true);
 

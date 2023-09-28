@@ -13,6 +13,12 @@ public class VoidEventChannelSO : DescriptionBaseSO
 
     public void Raise()
     {
-        OnEventRaised?.Invoke();
+        if (OnEventRaised != null)
+        {
+            OnEventRaised.Invoke();
+        } else
+        {
+            Debug.LogWarning("A void event was requested, but nobody picked it up. ", this);
+        }
     }
 }

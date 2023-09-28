@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PongBall : MonoBehaviour
@@ -29,7 +30,7 @@ public class PongBall : MonoBehaviour
         indicator.SetActive(true);
 
         nextRandomMovement = new Vector2(Random.Range(.2f, 1) * ((Random.value > 0.5) ? 1 : -1), Random.Range(-2f, .2f));
-        transform.up = nextRandomMovement;
+        indicator.transform.up = nextRandomMovement;
         DisableTrail();
         Invoke("RandomeMovement", 1);
     }
@@ -56,4 +57,14 @@ public class PongBall : MonoBehaviour
             trail.enabled = false;
         }
     }
+
+    //private void OnCollisionEnter2D(Collision2D collision)
+    //{
+    //    PongPlayerMovement player = collision.gameObject.GetComponent<PongPlayerMovement>();
+    //    if (player != null) 
+    //    {
+    //        Debug.Log("Add force: " + player.VelocityVector());
+    //        rgbd.AddForce(player.VelocityVector());
+    //    }
+    //}
 }
