@@ -20,6 +20,7 @@ public class PongUIManager : MonoBehaviour
     [SerializeField] AssetReferenceGameObject settingUI;
 
     private GameObject settingUIGameObject;
+    private bool startedLoading;
 
     private void Start()
     {
@@ -44,15 +45,26 @@ public class PongUIManager : MonoBehaviour
 
     private void PauseEvent_OnEventRaised(bool value)
     {
-        if (settingUIGameObject != null)
+        if (startedLoading)
             return;
+
         if(value)
         {
-            settingUI.LoadAssetAsync<GameObject>().Completed += OnLoadUICompleted;
+            // Player can pause multiple times
+            // we load asset on the first time and keep the object until player quit mini game
+            if (settingUIGameObject == null)
+            {
+                settingUI.LoadAssetAsync<GameObject>().Completed += OnLoadUICompleted;
+                startedLoading = true;
+            } else
+            {
+                settingUIGameObject.SetActive(true);
+            }
         }
-        else
+        else if(settingUIGameObject != null)
         {
-            settingUI.ReleaseInstance(settingUIGameObject);
+            // Only toggle when already loaded asset
+            settingUIGameObject.SetActive(false);
         }
     }
 
@@ -60,11 +72,25 @@ public class PongUIManager : MonoBehaviour
     {
         if(asyncOperationHandle.Status == AsyncOperationStatus.Succeeded)
         {
-            settingUIGameObject = Instantiate(asyncOperationHandle.Result, transform);
-            settingUIGameObject.SetActive(true);
+            //settingUIGameObject = asyncOperationHandle.Result;
+            Addressables.InstantiateAsync(settingUI, transform).Completed += InstantiateUICompleted;
         } else
         {
             Debug.LogError("Fail to load addressable asset" + settingUI.ToString());
+        }
+        startedLoading = false;
+    }
+
+    private void InstantiateUICompleted(AsyncOperationHandle<GameObject> obj)
+    {
+        if(obj.Status == AsyncOperationStatus.Succeeded)
+        {
+            settingUIGameObject = obj.Result;
+            settingUIGameObject.SetActive(true);
+            settingUIGameObject.transform.SetParent(transform);
+        } else
+        {
+            Debug.LogError("Fail to instantiate addressable asset" + settingUI.ToString());
         }
     }
 }

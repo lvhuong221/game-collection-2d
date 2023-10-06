@@ -10,11 +10,19 @@ public class PongGameModeSelector : MonoBehaviour
     [SerializeField] Button pvpButton;
 
     [SerializeField] PongGameModeChannelSO pongGameMode;
+    [SerializeField] VoidEventChannelSO openSelectGameModeEvent;
 
     private void Start()
     {
         pveButton.Select();
+        openSelectGameModeEvent.OnEventRaised += OnOpenSelectGameModeEvent;
     }
+
+    private void OnDestroy()
+    {
+        openSelectGameModeEvent.OnEventRaised -= OnOpenSelectGameModeEvent;
+    }
+
     private void OnEnable()
     {
         pvpButton.onClick.AddListener(SelectPvP);
@@ -26,6 +34,7 @@ public class PongGameModeSelector : MonoBehaviour
         pvpButton.onClick.RemoveListener(SelectPvP);
         pveButton.onClick.RemoveListener(SelectPvE);
     }
+
     private void SelectPvP()
     {
         pongGameMode.Raise(PongGameModeChannelSO.PongGameMode.PvP);
@@ -38,4 +47,8 @@ public class PongGameModeSelector : MonoBehaviour
         gameObject.SetActive(false);
     }
 
+    private void OnOpenSelectGameModeEvent()
+    {
+        gameObject.SetActive(true);
+    }
 }

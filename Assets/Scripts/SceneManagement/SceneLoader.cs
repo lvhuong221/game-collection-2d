@@ -74,9 +74,10 @@ public class SceneLoader : MonoBehaviour
         // each game will have its own game manager and will enable input from there
         _inputReader.DisableAllInput();
 
-        yield return new WaitForSeconds(_fadeDuration);
+        yield return new WaitForSecondsRealtime(_fadeDuration);
 
-        if(_currentlyLoadedScene != null) // null if player start from Initialsation
+        _fadeRequestChannel.FadeOut(_fadeDuration);
+        if (_currentlyLoadedScene != null) // null if player start from Initialsation
         {
             if (_currentlyLoadedScene.sceneReference.OperationHandle.IsValid())
             {
@@ -114,7 +115,7 @@ public class SceneLoader : MonoBehaviour
             _toggleLoadingScreen.Raise(false);
         }
 
-        _fadeRequestChannel.FadeIn(1);
+        _fadeRequestChannel.FadeIn(_fadeDuration);
 
         FinishLoading();
     }

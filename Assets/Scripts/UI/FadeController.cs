@@ -26,7 +26,7 @@ public class FadeController : MonoBehaviour
     /// <param name="color">Target color for the image to reach. Disregarded when fading out.</param>
     private void InitiateFade(bool fadeIn, float duration, Color desiredColor)
     {
-        _imageComponent.DOBlendableColor(desiredColor, 2).OnComplete(() =>
+        _imageComponent.DOBlendableColor(desiredColor, duration).OnComplete(() =>
         {
         });
 

@@ -29,17 +29,19 @@ public class PongBall : MonoBehaviour
         transform.position = Vector2.zero;
         indicator.SetActive(true);
 
-        nextRandomMovement = new Vector2(Random.Range(.2f, 1) * ((Random.value > 0.5) ? 1 : -1), Random.Range(-2f, .2f));
+        nextRandomMovement = new Vector2(Random.Range(.2f, 1) * ((Random.value > 0.5) ? 1 : -1), Random.Range(-.2f, .2f));
         indicator.transform.up = nextRandomMovement;
+        rgbd.velocity = Vector2.zero;
         DisableTrail();
-        Invoke("RandomeMovement", 1);
+        Invoke("RandomMovement", 1);
     }
 
-    private void RandomeMovement()
+    private void RandomMovement()
     {
+        Debug.Log("Random movement" + nextRandomMovement.normalized);
         EnableTrail();
         indicator.SetActive(false);
-        rgbd.AddForce(nextRandomMovement.normalized * speed, ForceMode2D.Impulse);
+        rgbd.velocity = nextRandomMovement.normalized * speed;
     }
 
     private void EnableTrail()

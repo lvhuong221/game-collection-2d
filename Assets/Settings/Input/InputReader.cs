@@ -44,7 +44,10 @@ public class InputReader : ScriptableObject, GameInput.IGameplayActions
 
     public void OnPause(InputAction.CallbackContext context)
     {
-        PauseEvent.Invoke();
+        if(context.phase == InputActionPhase.Performed)
+        {
+            PauseEvent.Invoke();
+        }
     }
 
     public void DisableAllInput()
