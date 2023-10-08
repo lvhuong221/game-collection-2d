@@ -24,7 +24,7 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
     ""name"": ""GameInput"",
     ""maps"": [
         {
-            ""name"": ""Gameplay"",
+            ""name"": ""PongGameplay"",
             ""id"": ""a292aea7-ec7d-4994-b004-6aa67aeb1dae"",
             ""actions"": [
                 {
@@ -189,15 +189,67 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""ShootToMove"",
+            ""id"": ""d3ad7d9f-3ff4-488b-8546-26da8e243dae"",
+            ""actions"": [
+                {
+                    ""name"": ""MousePosition"",
+                    ""type"": ""Value"",
+                    ""id"": ""bef081fa-75ef-4486-8a71-fb340c22c116"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Fire"",
+                    ""type"": ""Button"",
+                    ""id"": ""0beeebbe-e92e-4c0d-a4de-f2c8715398a4"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""a7b0544b-5712-41e9-8c48-ea8fddd6fbfa"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MousePosition"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d7739fe6-dc5b-4754-bd13-7f47a74121f5"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Fire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
 }");
-        // Gameplay
-        m_Gameplay = asset.FindActionMap("Gameplay", throwIfNotFound: true);
-        m_Gameplay_Player1Move = m_Gameplay.FindAction("Player1Move", throwIfNotFound: true);
-        m_Gameplay_Player2Move = m_Gameplay.FindAction("Player2Move", throwIfNotFound: true);
-        m_Gameplay_Pause = m_Gameplay.FindAction("Pause", throwIfNotFound: true);
+        // PongGameplay
+        m_PongGameplay = asset.FindActionMap("PongGameplay", throwIfNotFound: true);
+        m_PongGameplay_Player1Move = m_PongGameplay.FindAction("Player1Move", throwIfNotFound: true);
+        m_PongGameplay_Player2Move = m_PongGameplay.FindAction("Player2Move", throwIfNotFound: true);
+        m_PongGameplay_Pause = m_PongGameplay.FindAction("Pause", throwIfNotFound: true);
+        // ShootToMove
+        m_ShootToMove = asset.FindActionMap("ShootToMove", throwIfNotFound: true);
+        m_ShootToMove_MousePosition = m_ShootToMove.FindAction("MousePosition", throwIfNotFound: true);
+        m_ShootToMove_Fire = m_ShootToMove.FindAction("Fire", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -256,28 +308,28 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
         return asset.FindBinding(bindingMask, out action);
     }
 
-    // Gameplay
-    private readonly InputActionMap m_Gameplay;
-    private List<IGameplayActions> m_GameplayActionsCallbackInterfaces = new List<IGameplayActions>();
-    private readonly InputAction m_Gameplay_Player1Move;
-    private readonly InputAction m_Gameplay_Player2Move;
-    private readonly InputAction m_Gameplay_Pause;
-    public struct GameplayActions
+    // PongGameplay
+    private readonly InputActionMap m_PongGameplay;
+    private List<IPongGameplayActions> m_PongGameplayActionsCallbackInterfaces = new List<IPongGameplayActions>();
+    private readonly InputAction m_PongGameplay_Player1Move;
+    private readonly InputAction m_PongGameplay_Player2Move;
+    private readonly InputAction m_PongGameplay_Pause;
+    public struct PongGameplayActions
     {
         private @GameInput m_Wrapper;
-        public GameplayActions(@GameInput wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Player1Move => m_Wrapper.m_Gameplay_Player1Move;
-        public InputAction @Player2Move => m_Wrapper.m_Gameplay_Player2Move;
-        public InputAction @Pause => m_Wrapper.m_Gameplay_Pause;
-        public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
+        public PongGameplayActions(@GameInput wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Player1Move => m_Wrapper.m_PongGameplay_Player1Move;
+        public InputAction @Player2Move => m_Wrapper.m_PongGameplay_Player2Move;
+        public InputAction @Pause => m_Wrapper.m_PongGameplay_Pause;
+        public InputActionMap Get() { return m_Wrapper.m_PongGameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
         public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(GameplayActions set) { return set.Get(); }
-        public void AddCallbacks(IGameplayActions instance)
+        public static implicit operator InputActionMap(PongGameplayActions set) { return set.Get(); }
+        public void AddCallbacks(IPongGameplayActions instance)
         {
-            if (instance == null || m_Wrapper.m_GameplayActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_GameplayActionsCallbackInterfaces.Add(instance);
+            if (instance == null || m_Wrapper.m_PongGameplayActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_PongGameplayActionsCallbackInterfaces.Add(instance);
             @Player1Move.started += instance.OnPlayer1Move;
             @Player1Move.performed += instance.OnPlayer1Move;
             @Player1Move.canceled += instance.OnPlayer1Move;
@@ -289,7 +341,7 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
             @Pause.canceled += instance.OnPause;
         }
 
-        private void UnregisterCallbacks(IGameplayActions instance)
+        private void UnregisterCallbacks(IPongGameplayActions instance)
         {
             @Player1Move.started -= instance.OnPlayer1Move;
             @Player1Move.performed -= instance.OnPlayer1Move;
@@ -302,25 +354,84 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
             @Pause.canceled -= instance.OnPause;
         }
 
-        public void RemoveCallbacks(IGameplayActions instance)
+        public void RemoveCallbacks(IPongGameplayActions instance)
         {
-            if (m_Wrapper.m_GameplayActionsCallbackInterfaces.Remove(instance))
+            if (m_Wrapper.m_PongGameplayActionsCallbackInterfaces.Remove(instance))
                 UnregisterCallbacks(instance);
         }
 
-        public void SetCallbacks(IGameplayActions instance)
+        public void SetCallbacks(IPongGameplayActions instance)
         {
-            foreach (var item in m_Wrapper.m_GameplayActionsCallbackInterfaces)
+            foreach (var item in m_Wrapper.m_PongGameplayActionsCallbackInterfaces)
                 UnregisterCallbacks(item);
-            m_Wrapper.m_GameplayActionsCallbackInterfaces.Clear();
+            m_Wrapper.m_PongGameplayActionsCallbackInterfaces.Clear();
             AddCallbacks(instance);
         }
     }
-    public GameplayActions @Gameplay => new GameplayActions(this);
-    public interface IGameplayActions
+    public PongGameplayActions @PongGameplay => new PongGameplayActions(this);
+
+    // ShootToMove
+    private readonly InputActionMap m_ShootToMove;
+    private List<IShootToMoveActions> m_ShootToMoveActionsCallbackInterfaces = new List<IShootToMoveActions>();
+    private readonly InputAction m_ShootToMove_MousePosition;
+    private readonly InputAction m_ShootToMove_Fire;
+    public struct ShootToMoveActions
+    {
+        private @GameInput m_Wrapper;
+        public ShootToMoveActions(@GameInput wrapper) { m_Wrapper = wrapper; }
+        public InputAction @MousePosition => m_Wrapper.m_ShootToMove_MousePosition;
+        public InputAction @Fire => m_Wrapper.m_ShootToMove_Fire;
+        public InputActionMap Get() { return m_Wrapper.m_ShootToMove; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(ShootToMoveActions set) { return set.Get(); }
+        public void AddCallbacks(IShootToMoveActions instance)
+        {
+            if (instance == null || m_Wrapper.m_ShootToMoveActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_ShootToMoveActionsCallbackInterfaces.Add(instance);
+            @MousePosition.started += instance.OnMousePosition;
+            @MousePosition.performed += instance.OnMousePosition;
+            @MousePosition.canceled += instance.OnMousePosition;
+            @Fire.started += instance.OnFire;
+            @Fire.performed += instance.OnFire;
+            @Fire.canceled += instance.OnFire;
+        }
+
+        private void UnregisterCallbacks(IShootToMoveActions instance)
+        {
+            @MousePosition.started -= instance.OnMousePosition;
+            @MousePosition.performed -= instance.OnMousePosition;
+            @MousePosition.canceled -= instance.OnMousePosition;
+            @Fire.started -= instance.OnFire;
+            @Fire.performed -= instance.OnFire;
+            @Fire.canceled -= instance.OnFire;
+        }
+
+        public void RemoveCallbacks(IShootToMoveActions instance)
+        {
+            if (m_Wrapper.m_ShootToMoveActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IShootToMoveActions instance)
+        {
+            foreach (var item in m_Wrapper.m_ShootToMoveActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_ShootToMoveActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public ShootToMoveActions @ShootToMove => new ShootToMoveActions(this);
+    public interface IPongGameplayActions
     {
         void OnPlayer1Move(InputAction.CallbackContext context);
         void OnPlayer2Move(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
+    }
+    public interface IShootToMoveActions
+    {
+        void OnMousePosition(InputAction.CallbackContext context);
+        void OnFire(InputAction.CallbackContext context);
     }
 }

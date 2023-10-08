@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a560d7640d3e2447836516a18619265, type: 3}
+  m_Name: STM_Level
+  m_EditorClassIdentifier: 
+  _guid: abf14a449ce5f4f44951ffc24b3d2197
+  description: 
+  listLevel:
+  - level: 1
+    sceneAsset: {fileID: 11400000, guid: d7bb21127c9de7d4d94864b13f94e6a8, type: 2}
+    ammoLimit: 5
+  - level: 2
+    sceneAsset: {fileID: 11400000, guid: dc4e70785d3484346bd2a731b0e520e9, type: 2}
+    ammoLimit: 4
+  - level: 3
+    sceneAsset: {fileID: 11400000, guid: e47d120066ac8f2458debd78ce8c0b2f, type: 2}
+    ammoLimit: 4

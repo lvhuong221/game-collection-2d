@@ -17,13 +17,13 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 8ea496fc2b665fe48bca4d1e89d98d52
   m_SerializeEntries:
-  - m_GUID: c58eac3a83884a24a81a026f1373fe24
-    m_Address: Assets/Prefabs/UI/SettingPanel.prefab
+  - m_GUID: 8358d7c93d977eb42bdd6f50a731946d
+    m_Address: Assets/Prefabs/UI/EventSystem.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 8358d7c93d977eb42bdd6f50a731946d
-    m_Address: Assets/Prefabs/UI/EventSystem.prefab
+  - m_GUID: c58eac3a83884a24a81a026f1373fe24
+    m_Address: Assets/Prefabs/UI/PongSettingPanel.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class PongPlayerTwoController : PongPlayerMovement
 {
-    [SerializeField] private InputReader _inputReader;
+    [SerializeField] private PongInputReader _inputReader;
     [SerializeField] private PongGameModeChannelSO selectGameModeEvent;
     [SerializeField] private PongBall pongBall;
 

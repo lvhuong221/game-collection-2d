@@ -11,11 +11,13 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class SceneLoader : MonoBehaviour
 {
-    [SerializeField] private InputReader _inputReader;
+    [SerializeField] private PongInputReader _inputReader;
 
     [Header("Listen to")]
     [SerializeField] private LoadSceneEventChannelSO _loadMenuEvent;
     [SerializeField] private LoadSceneEventChannelSO _miniGameEvent;
+    [SerializeField] private LoadSceneEventChannelSO _loadGameplayExtraEvent;
+    [SerializeField] private LoadSceneEventChannelSO _unloadSceneEvent;
 
     [Header("Broadcast")]
     [SerializeField] private BoolEventChannelSO _toggleLoadingScreen = default;
@@ -28,6 +30,9 @@ public class SceneLoader : MonoBehaviour
     private GameSceneSO _sceneToLoad;
     private GameSceneSO _currentlyLoadedScene;
 
+    private GameSceneSO _gameplaySceneToLoad;
+    private GameSceneSO _loadedGameplayScene;
+
     private bool _fadeScreen;
     private float _fadeDuration = .5f;
     private bool _showLoadingScreen;
@@ -37,13 +42,28 @@ public class SceneLoader : MonoBehaviour
     {
         _loadMenuEvent.OnLoadingRequested += LoadMenu;
         _miniGameEvent.OnLoadingRequested += LoadMiniGame;
+        _loadGameplayExtraEvent.OnLoadingRequested += LoadGameplayManager;
+        _unloadSceneEvent.OnLoadingRequested += UnloadScene;
     }
     private void OnDisable()
     {
         _loadMenuEvent.OnLoadingRequested -= LoadMenu;
         _miniGameEvent.OnLoadingRequested -= LoadMiniGame;
+        _loadGameplayExtraEvent.OnLoadingRequested -= LoadGameplayManager;
+        _unloadSceneEvent.OnLoadingRequested -= UnloadScene;
     }
 
+    private void LoadGameplayManager(GameSceneSO sceneToLoad, bool showLoadingScreen = false, bool fadeScreen = false)
+    {
+        if (_isLoading)
+            return;
+
+        _gameplaySceneToLoad = sceneToLoad;
+        _showLoadingScreen = showLoadingScreen;
+        _fadeScreen = fadeScreen;
+
+        LoadGameplayScene();
+    }
 
     private void LoadMenu(GameSceneSO sceneToLoad, bool showLoadingScreen = false, bool fadeScreen = false)
     {
@@ -55,6 +75,8 @@ public class SceneLoader : MonoBehaviour
         _fadeScreen = fadeScreen;
 
         StartCoroutine("UnloadPreviousScene");
+        // If go back to menu from gameplay scene
+        StartCoroutine("UnloadGameplayScene");
     }
 
     private void LoadMiniGame(GameSceneSO sceneToLoad, bool showLoadingScreen = false, bool fadeScreen = false)
@@ -69,23 +91,55 @@ public class SceneLoader : MonoBehaviour
         StartCoroutine("UnloadPreviousScene");
     }
 
+    private void UnloadScene(GameSceneSO sceneToUnload, bool showLoadingScreen = false, bool fadeScreen = false)
+    {
+        if (sceneToUnload.sceneReference.OperationHandle.IsValid())
+        {
+            sceneToUnload.sceneReference.UnLoadScene();
+        }
+    }
+
     private IEnumerator UnloadPreviousScene()
     {
         // each game will have its own game manager and will enable input from there
         _inputReader.DisableAllInput();
+        if (_fadeScreen)
+        {
+            _fadeRequestChannel.FadeOut(_fadeDuration);
+        }
 
         yield return new WaitForSecondsRealtime(_fadeDuration);
 
-        _fadeRequestChannel.FadeOut(_fadeDuration);
-        if (_currentlyLoadedScene != null) // null if player start from Initialsation
+        if(_currentlyLoadedScene != null) // null if player start from Initialsation
         {
             if (_currentlyLoadedScene.sceneReference.OperationHandle.IsValid())
             {
                 _currentlyLoadedScene.sceneReference.UnLoadScene();
             }
+#if UNITY_EDITOR
+            else
+            {
+                //Only used when, after a "cold start", the player moves to a new scene
+                //Since the AsyncOperationHandle has not been used (the scene was already open in the editor),
+                //the scene needs to be unloaded using regular SceneManager instead of as an Addressable
+                SceneManager.UnloadSceneAsync(_currentlyLoadedScene.sceneReference.editorAsset.name);
+            }
+#endif
         }
 
         LoadNewScene();
+    }
+
+    private IEnumerator UnloadGameplayScene()
+    {
+        yield return new WaitForSecondsRealtime(_fadeDuration);
+        if(_loadedGameplayScene != null)
+        {
+            if (_loadedGameplayScene.sceneReference.OperationHandle.IsValid())
+            {
+                _loadedGameplayScene.sceneReference.UnLoadScene();
+            }
+        }
     }
 
     private void LoadNewScene()
@@ -97,6 +151,16 @@ public class SceneLoader : MonoBehaviour
 
         _loadingOperationHandle = _sceneToLoad.sceneReference.LoadSceneAsync(LoadSceneMode.Additive, true, 0);
         _loadingOperationHandle.Completed += OnNewSceneLoaded;
+    }
+    private void LoadGameplayScene()
+    {
+        if (_showLoadingScreen)
+        {
+            _toggleLoadingScreen.Raise(true);
+        }
+
+        _gameplayManagerLoadingOpHandle = _gameplaySceneToLoad.sceneReference.LoadSceneAsync(LoadSceneMode.Additive, true, 0);
+        _gameplayManagerLoadingOpHandle.Completed += OnNewSceneLoaded;
     }
 
     private void OnNewSceneLoaded(AsyncOperationHandle<SceneInstance> obj)
@@ -110,14 +174,15 @@ public class SceneLoader : MonoBehaviour
 
         _isLoading = false;
 
-        if(_showLoadingScreen)
-        {
-            _toggleLoadingScreen.Raise(false);
-        }
-
+        _toggleLoadingScreen.Raise(false);
         _fadeRequestChannel.FadeIn(_fadeDuration);
 
         FinishLoading();
+    }
+
+    private void OnGUI()
+    {
+        
     }
 
     private void FinishLoading() 

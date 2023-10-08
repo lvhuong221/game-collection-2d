@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class PongGameManager : MonoBehaviour
 {
-    [SerializeField] private InputReader _inputReader;
+    [SerializeField] private PongInputReader _inputReader;
     [SerializeField] private PongBall pongBall;
     [SerializeField] private IntVariable playerOneScoreVariable;
     [SerializeField] private IntVariable playerTwoScoreVariable;

@@ -6,8 +6,8 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
-[CreateAssetMenu(fileName = "InputReader", menuName = "Game/Input Reader")]
-public class InputReader : ScriptableObject, GameInput.IGameplayActions
+[CreateAssetMenu(fileName = "PongInputReader", menuName = "Input/Input Reader/Pong")]
+public class PongInputReader : ScriptableObject, GameInput.IPongGameplayActions
 {
     public event UnityAction<Vector2> PlayerOneMoveEvent = delegate { };
     public event UnityAction<Vector2> PlayerTwoMoveEvent = delegate { };
@@ -22,8 +22,13 @@ public class InputReader : ScriptableObject, GameInput.IGameplayActions
         {
             _gameInput = new GameInput();
 
-            _gameInput.Gameplay.SetCallbacks(this);
+            _gameInput.PongGameplay.SetCallbacks(this);
         }
+    }
+
+    private void OnDisable()
+    {
+        DisableAllInput();
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -44,10 +49,7 @@ public class InputReader : ScriptableObject, GameInput.IGameplayActions
 
     public void OnPause(InputAction.CallbackContext context)
     {
-        if(context.phase == InputActionPhase.Performed)
-        {
-            PauseEvent.Invoke();
-        }
+        PauseEvent.Invoke();
     }
 
     public void DisableAllInput()
@@ -59,4 +61,5 @@ public class InputReader : ScriptableObject, GameInput.IGameplayActions
     {
         _gameInput.Enable();
     }
+
 }

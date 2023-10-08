@@ -2,7 +2,7 @@
     "name": "GameInput",
     "maps": [
         {
-            "name": "Gameplay",
+            "name": "PongGameplay",
             "id": "a292aea7-ec7d-4994-b004-6aa67aeb1dae",
             "actions": [
                 {
@@ -163,6 +163,54 @@
                     "processors": "",
                     "groups": "",
                     "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "ShootToMove",
+            "id": "d3ad7d9f-3ff4-488b-8546-26da8e243dae",
+            "actions": [
+                {
+                    "name": "MousePosition",
+                    "type": "Value",
+                    "id": "bef081fa-75ef-4486-8a71-fb340c22c116",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Fire",
+                    "type": "Button",
+                    "id": "0beeebbe-e92e-4c0d-a4de-f2c8715398a4",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "a7b0544b-5712-41e9-8c48-ea8fddd6fbfa",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MousePosition",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d7739fe6-dc5b-4754-bd13-7f47a74121f5",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Fire",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

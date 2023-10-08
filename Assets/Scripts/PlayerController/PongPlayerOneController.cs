@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PongPlayerOneController : PongPlayerMovement
 {
-    [SerializeField] private InputReader _inputReader;
+    [SerializeField] private PongInputReader _inputReader;
 
     private void Start()
     {
