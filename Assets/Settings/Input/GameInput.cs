@@ -211,6 +211,24 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Reset"",
+                    ""type"": ""Button"",
+                    ""id"": ""747ea7e7-d512-4fa4-96a2-bf3229884cd1"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""e6d29fc1-18e8-4e39-917a-0b55f5a2c2b8"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -235,6 +253,39 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
                     ""action"": ""Fire"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d2dffbed-ec0d-4858-812f-a2065e321203"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Fire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""15df3581-dc67-4fed-9927-f3362b1b3e21"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Reset"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""95c967f4-ff75-40fb-9d70-b0147c257d6e"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -250,6 +301,8 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
         m_ShootToMove = asset.FindActionMap("ShootToMove", throwIfNotFound: true);
         m_ShootToMove_MousePosition = m_ShootToMove.FindAction("MousePosition", throwIfNotFound: true);
         m_ShootToMove_Fire = m_ShootToMove.FindAction("Fire", throwIfNotFound: true);
+        m_ShootToMove_Reset = m_ShootToMove.FindAction("Reset", throwIfNotFound: true);
+        m_ShootToMove_Pause = m_ShootToMove.FindAction("Pause", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -375,12 +428,16 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
     private List<IShootToMoveActions> m_ShootToMoveActionsCallbackInterfaces = new List<IShootToMoveActions>();
     private readonly InputAction m_ShootToMove_MousePosition;
     private readonly InputAction m_ShootToMove_Fire;
+    private readonly InputAction m_ShootToMove_Reset;
+    private readonly InputAction m_ShootToMove_Pause;
     public struct ShootToMoveActions
     {
         private @GameInput m_Wrapper;
         public ShootToMoveActions(@GameInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @MousePosition => m_Wrapper.m_ShootToMove_MousePosition;
         public InputAction @Fire => m_Wrapper.m_ShootToMove_Fire;
+        public InputAction @Reset => m_Wrapper.m_ShootToMove_Reset;
+        public InputAction @Pause => m_Wrapper.m_ShootToMove_Pause;
         public InputActionMap Get() { return m_Wrapper.m_ShootToMove; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -396,6 +453,12 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
             @Fire.started += instance.OnFire;
             @Fire.performed += instance.OnFire;
             @Fire.canceled += instance.OnFire;
+            @Reset.started += instance.OnReset;
+            @Reset.performed += instance.OnReset;
+            @Reset.canceled += instance.OnReset;
+            @Pause.started += instance.OnPause;
+            @Pause.performed += instance.OnPause;
+            @Pause.canceled += instance.OnPause;
         }
 
         private void UnregisterCallbacks(IShootToMoveActions instance)
@@ -406,6 +469,12 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
             @Fire.started -= instance.OnFire;
             @Fire.performed -= instance.OnFire;
             @Fire.canceled -= instance.OnFire;
+            @Reset.started -= instance.OnReset;
+            @Reset.performed -= instance.OnReset;
+            @Reset.canceled -= instance.OnReset;
+            @Pause.started -= instance.OnPause;
+            @Pause.performed -= instance.OnPause;
+            @Pause.canceled -= instance.OnPause;
         }
 
         public void RemoveCallbacks(IShootToMoveActions instance)
@@ -433,5 +502,7 @@ public partial class @GameInput: IInputActionCollection2, IDisposable
     {
         void OnMousePosition(InputAction.CallbackContext context);
         void OnFire(InputAction.CallbackContext context);
+        void OnReset(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
     }
 }

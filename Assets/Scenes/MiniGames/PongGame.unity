@@ -1252,7 +1252,8 @@ MonoBehaviour:
   playerTwoScoreText: {fileID: 455564029}
   playerOneScoreVariable: {fileID: 11400000, guid: cfce40aaf1337614384d0f9e3ad2a087, type: 2}
   playerTwoScoreVariable: {fileID: 11400000, guid: d841c83fe8c41624d8ff1b4803c1f64c, type: 2}
-  pauseEvent: {fileID: 11400000, guid: 1d5e5592e67367142bc8fe46e88343df, type: 2}
+  pauseEvent: {fileID: 11400000, guid: 3334965740bfbdc47ad1a94b7b197488, type: 2}
+  resumeEvent: {fileID: 11400000, guid: ef772364c6e6cea40b3de6d6403c08fa, type: 2}
   settingUI:
     m_AssetGUID: c58eac3a83884a24a81a026f1373fe24
     m_SubObjectName: 
@@ -1611,6 +1612,67 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &650191942
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1347575544777561666, guid: ba15019b6d177a1418b8f6025e44b0e7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 397.33835
+      objectReference: {fileID: 0}
+    - target: {fileID: 1347575544777561666, guid: ba15019b6d177a1418b8f6025e44b0e7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 237.29189
+      objectReference: {fileID: 0}
+    - target: {fileID: 1347575544777561666, guid: ba15019b6d177a1418b8f6025e44b0e7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -3.8191018
+      objectReference: {fileID: 0}
+    - target: {fileID: 1347575544777561666, guid: ba15019b6d177a1418b8f6025e44b0e7, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1347575544777561666, guid: ba15019b6d177a1418b8f6025e44b0e7, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1347575544777561666, guid: ba15019b6d177a1418b8f6025e44b0e7, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1347575544777561666, guid: ba15019b6d177a1418b8f6025e44b0e7, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1347575544777561666, guid: ba15019b6d177a1418b8f6025e44b0e7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1347575544777561666, guid: ba15019b6d177a1418b8f6025e44b0e7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1347575544777561666, guid: ba15019b6d177a1418b8f6025e44b0e7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1374148574926547364, guid: ba15019b6d177a1418b8f6025e44b0e7, type: 3}
+      propertyPath: m_Name
+      value: SingleAudioRequest
+      objectReference: {fileID: 0}
+    - target: {fileID: 7661699835236553103, guid: ba15019b6d177a1418b8f6025e44b0e7, type: 3}
+      propertyPath: _audioCue
+      value: 
+      objectReference: {fileID: 11400000, guid: d12ef16fbfe35944993e5ba96854e2b6, type: 2}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ba15019b6d177a1418b8f6025e44b0e7, type: 3}
 --- !u!1 &804527599
 GameObject:
   m_ObjectHideFlags: 0
@@ -2608,7 +2670,7 @@ MonoBehaviour:
   playerTwoScoreVariable: {fileID: 11400000, guid: d841c83fe8c41624d8ff1b4803c1f64c, type: 2}
   playerOneScoreEvent: {fileID: 11400000, guid: 70f9fef5db3b35a42a18a8c9e60e619f, type: 2}
   playerTwoScoreEvent: {fileID: 11400000, guid: 7787289728083d24d9b4beada7d54701, type: 2}
-  pauseEvent: {fileID: 11400000, guid: 1d5e5592e67367142bc8fe46e88343df, type: 2}
+  pauseEvent: {fileID: 11400000, guid: 3334965740bfbdc47ad1a94b7b197488, type: 2}
   resumeEvent: {fileID: 11400000, guid: ef772364c6e6cea40b3de6d6403c08fa, type: 2}
   selectGameModeEvent: {fileID: 11400000, guid: deb6319910c2f5d46bc30409cbd6d52f, type: 2}
   resetScoreEvent: {fileID: 11400000, guid: 25ebaa10f06703c4a9ab2cf8e9391883, type: 2}
@@ -3093,3 +3155,4 @@ SceneRoots:
   - {fileID: 863890269}
   - {fileID: 113940037}
   - {fileID: 1395741033}
+  - {fileID: 650191942}

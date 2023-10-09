@@ -24,7 +24,7 @@ public class PongSettingUI : MonoBehaviour
     }
     private void OnDisable()
     {
-        resetScoreButton.onClick.RemoveListener(OnClickResetScore);
+        resumeButton.onClick.RemoveListener(OnClickResume);
         selectGameModeButton.onClick.RemoveListener(OnClickSelectGameMode);
         resetScoreButton.onClick.RemoveListener(OnClickResetScore);
         returnToMenuButton.onClick.RemoveListener(OnClickReturnToMenu);

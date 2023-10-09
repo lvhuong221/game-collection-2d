@@ -17,36 +17,8 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 528e60db2b81ce84cabc9d21672499f2
   m_SerializeEntries:
-  - m_GUID: 8c9cfa26abfee488c85f1582747f6a02
-    m_Address: Assets/Scenes/MiniGames/PongGame.unity
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - MiniGame
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 9abdca1072c0cf6478a5ab6cbd5487de
-    m_Address: Assets/Scenes/MiniGames/MemoryPuzzle.unity
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - MiniGame
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: a272ec9f876a9ff41adcbc81082284de
-    m_Address: Assets/Scenes/MiniGames/ShootToMove.unity
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - MiniGame
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: e948a544b2915054a802a1610e958640
-    m_Address: Assets/Scenes/MiniGames/STM_Level/STM_Level_1.unity
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 9f3305631e4f4e746b087becc0178cfd
-    m_Address: Assets/Scenes/MiniGames/STM_Level/STM_Level_2.unity
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: e6361f38a4309ec4a9095f5e16f87f04
-    m_Address: Assets/Scenes/MiniGames/STM_Level/STM_Level_3.unity
+  - m_GUID: 7d0d70a86dc0275409200a8ca99bd2d2
+    m_Address: Assets/Scenes
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

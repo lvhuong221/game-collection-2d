@@ -1,18 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
-public class FloatEventChannelSO : MonoBehaviour
+[CreateAssetMenu(menuName = "Events/Float Event Channel")]
+public class FloatEventChannelSO : DescriptionBaseSO
 {
-    // Start is called before the first frame update
-    void Start()
+    public UnityAction<float> OnFloatRequested;
+    public void Raise(float value)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (OnFloatRequested != null)
+        {
+            OnFloatRequested.Invoke(value);
+        } else
+        {
+            Debug.LogWarning("A float event was requested, but nobody picked it up");
+        }
     }
 }

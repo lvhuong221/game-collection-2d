@@ -49,7 +49,10 @@ public class PongInputReader : ScriptableObject, GameInput.IPongGameplayActions
 
     public void OnPause(InputAction.CallbackContext context)
     {
-        PauseEvent.Invoke();
+        if(context.phase == InputActionPhase.Performed)
+        {
+            PauseEvent.Invoke();
+        }
     }
 
     public void DisableAllInput()

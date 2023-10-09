@@ -15,8 +15,9 @@ public class PongUIManager : MonoBehaviour
     [SerializeField] IntVariable playerOneScoreVariable;
     [SerializeField] IntVariable playerTwoScoreVariable;
 
-    [Header("Setting")] 
-    [SerializeField] BoolEventChannelSO pauseEvent;
+    [Header("Setting")]
+    [SerializeField] VoidEventChannelSO pauseEvent;
+    [SerializeField] VoidEventChannelSO resumeEvent;
     [SerializeField] AssetReferenceGameObject settingUI;
 
     private GameObject settingUIGameObject;
@@ -26,14 +27,16 @@ public class PongUIManager : MonoBehaviour
     {
         playerOneScoreVariable?.AddListener(UpdatePlayerScores);
         playerTwoScoreVariable?.AddListener(UpdatePlayerScores);
-        pauseEvent.OnEventRaised += PauseEvent_OnEventRaised;
+        pauseEvent.OnEventRaised += OnPauseEvent;
+        resumeEvent.OnEventRaised += OnResumeEvent;
     }
 
     private void OnDestroy()
     {
         playerOneScoreVariable?.RemoveListener(UpdatePlayerScores);
         playerTwoScoreVariable?.RemoveListener(UpdatePlayerScores);
-        pauseEvent.OnEventRaised -= PauseEvent_OnEventRaised;
+        pauseEvent.OnEventRaised -= OnPauseEvent;
+        resumeEvent.OnEventRaised -= OnResumeEvent;
     }
 
     private void UpdatePlayerScores()
@@ -43,25 +46,26 @@ public class PongUIManager : MonoBehaviour
     }
 
 
-    private void PauseEvent_OnEventRaised(bool value)
+    private void OnPauseEvent()
     {
         if (startedLoading)
             return;
 
-        if(value)
+        // Player can pause multiple times
+        // we load asset on the first time and keep the object until player quit mini game
+        if (settingUIGameObject == null)
         {
-            // Player can pause multiple times
-            // we load asset on the first time and keep the object until player quit mini game
-            if (settingUIGameObject == null)
-            {
-                settingUI.LoadAssetAsync<GameObject>().Completed += OnLoadUICompleted;
-                startedLoading = true;
-            } else
-            {
-                settingUIGameObject.SetActive(true);
-            }
+            settingUI.LoadAssetAsync<GameObject>().Completed += OnLoadUICompleted;
+            startedLoading = true;
+        } else
+        {
+            settingUIGameObject.SetActive(true);
         }
-        else if(settingUIGameObject != null)
+    }
+
+    private void OnResumeEvent()
+    {
+        if (settingUIGameObject != null)
         {
             // Only toggle when already loaded asset
             settingUIGameObject.SetActive(false);
@@ -70,7 +74,7 @@ public class PongUIManager : MonoBehaviour
 
     private void OnLoadUICompleted(AsyncOperationHandle<GameObject> asyncOperationHandle)
     {
-        if(asyncOperationHandle.Status == AsyncOperationStatus.Succeeded)
+        if (asyncOperationHandle.Status == AsyncOperationStatus.Succeeded)
         {
             //settingUIGameObject = asyncOperationHandle.Result;
             Addressables.InstantiateAsync(settingUI, transform).Completed += InstantiateUICompleted;
@@ -83,7 +87,7 @@ public class PongUIManager : MonoBehaviour
 
     private void InstantiateUICompleted(AsyncOperationHandle<GameObject> obj)
     {
-        if(obj.Status == AsyncOperationStatus.Succeeded)
+        if (obj.Status == AsyncOperationStatus.Succeeded)
         {
             settingUIGameObject = obj.Result;
             settingUIGameObject.SetActive(true);

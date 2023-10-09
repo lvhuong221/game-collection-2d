@@ -21,7 +21,7 @@ public class GoalController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.GetComponent<ShootToMovePlayerController>() != null)
+        if(collision.GetComponent<STM_PlayerController>() != null)
         {
             playerReachGoalEvent.Raise();
         }

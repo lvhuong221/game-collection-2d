@@ -7,8 +7,10 @@ using UnityEngine.InputSystem;
 [CreateAssetMenu(fileName = "ShootToMoveInputReader", menuName = "Input/Input Reader/Shoot to move")]
 public class ShootToMoveInputReader : ScriptableObject, GameInput.IShootToMoveActions
 {
-    //public event UnityAction<Vector2> mousePositionEvent;
+    public event UnityAction<Vector2> mousePositionEvent;
     public event UnityAction shootEvent;
+    public event UnityAction resetEvent;
+    public event UnityAction pauseEvent;
 
     public Vector2 MousePosition {  get; private set; }
     private GameInput _gameInput;
@@ -50,6 +52,22 @@ public class ShootToMoveInputReader : ScriptableObject, GameInput.IShootToMoveAc
         MousePosition = context.ReadValue<Vector2>();
         if (context.phase == InputActionPhase.Performed)
         {
+        }
+    }
+
+    public void OnReset(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Performed)
+        {
+            resetEvent.Invoke();
+        }
+    }
+
+    public void OnPause(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Performed)
+        {
+            pauseEvent.Invoke();
         }
     }
 }

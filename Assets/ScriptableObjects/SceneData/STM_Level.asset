@@ -17,10 +17,16 @@ MonoBehaviour:
   listLevel:
   - level: 1
     sceneAsset: {fileID: 11400000, guid: d7bb21127c9de7d4d94864b13f94e6a8, type: 2}
-    ammoLimit: 5
+    ammoLimit: 4
   - level: 2
     sceneAsset: {fileID: 11400000, guid: dc4e70785d3484346bd2a731b0e520e9, type: 2}
-    ammoLimit: 4
+    ammoLimit: 5
   - level: 3
     sceneAsset: {fileID: 11400000, guid: e47d120066ac8f2458debd78ce8c0b2f, type: 2}
-    ammoLimit: 4
+    ammoLimit: 7
+  - level: 4
+    sceneAsset: {fileID: 11400000, guid: b37bc5b026be83f41adb9e7f55d7aadf, type: 2}
+    ammoLimit: 5
+  - level: 5
+    sceneAsset: {fileID: 11400000, guid: f1d7929604b42f54ab93d33783da5be1, type: 2}
+    ammoLimit: 5

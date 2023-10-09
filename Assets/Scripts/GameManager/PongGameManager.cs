@@ -13,7 +13,7 @@ public class PongGameManager : MonoBehaviour
     [Header("Events")]
     [SerializeField] private GameEvent playerOneScoreEvent;
     [SerializeField] private GameEvent playerTwoScoreEvent;
-    [SerializeField] private BoolEventChannelSO pauseEvent;
+    [SerializeField] private VoidEventChannelSO pauseEvent;
     [SerializeField] private VoidEventChannelSO resumeEvent;
     [SerializeField] private PongGameModeChannelSO selectGameModeEvent;
     [SerializeField] private VoidEventChannelSO resetScoreEvent;
@@ -63,7 +63,7 @@ public class PongGameManager : MonoBehaviour
     {
         _isPaused = !_isPaused;
         Time.timeScale = _isPaused ? 0 : 1;
-        pauseEvent.Raise(_isPaused);
+        pauseEvent.Raise();
     }
 
     private void InputReader_PauseEvent()

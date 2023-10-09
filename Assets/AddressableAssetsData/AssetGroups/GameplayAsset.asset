@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: GameplayAsset
+  m_EditorClassIdentifier: 
+  m_GroupName: GameplayAsset
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 57f916e687919a143999da8450945629
+  m_SerializeEntries:
+  - m_GUID: d3cb5f4919dc1ef45964e8ecf9ba9cba
+    m_Address: Assets/Prefabs/GamePlay/STM_BulletPrefab.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: ff9cea882c84ef44a83db404310b8f02, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: a8da9ac1a14fe9446b65509497b20d5b, type: 2}
+    - {fileID: 11400000, guid: e292524e17f51b54aa55da65725a4de5, type: 2}
