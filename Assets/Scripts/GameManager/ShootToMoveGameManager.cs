@@ -111,6 +111,7 @@ public class ShootToMoveGameManager : MonoBehaviour
         {
             return;
         }
+        // Unload current level before loading the next one
         unloadSceneEvent.Raise(currentLevel.sceneAsset, false, false);
 
         int level = currentLevel.level + 1;
@@ -119,13 +120,13 @@ public class ShootToMoveGameManager : MonoBehaviour
         if (currentLevel != null)
         {
             ammoLimit.Value = currentLevel.ammoLimit;
-            loadSceneEvent.Raise(currentLevel.sceneAsset, false, false);
+            loadSceneEvent.Raise(currentLevel.sceneAsset, true, false);
         } else
         {
             Debug.LogError("Level data not found");
             currentLevel = levelSO.GetLevelData(1);
             ammoLimit.Value = currentLevel.ammoLimit;
-            loadSceneEvent.Raise(levelSO.GetLevelData(1).sceneAsset, false, false);
+            loadSceneEvent.Raise(levelSO.GetLevelData(1).sceneAsset, true, false);
         }
     }
     private void OnPauseInput()

@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Music_Config
   m_EditorClassIdentifier: 
   Mute: 0
-  Volume: 0.5
+  Volume: 0.1
   Pitch: 1
   SpatialBlend: 1
