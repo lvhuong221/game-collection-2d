@@ -43,7 +43,7 @@ public class ShootToMoveInputReader : ScriptableObject, GameInput.IShootToMoveAc
     {
         if(context.phase == InputActionPhase.Performed)
         {
-            shootEvent.Invoke();
+            shootEvent?.Invoke();
         }
     }
 
@@ -59,7 +59,7 @@ public class ShootToMoveInputReader : ScriptableObject, GameInput.IShootToMoveAc
     {
         if (context.phase == InputActionPhase.Performed)
         {
-            resetEvent.Invoke();
+            resetEvent?.Invoke();
         }
     }
 
@@ -67,7 +67,7 @@ public class ShootToMoveInputReader : ScriptableObject, GameInput.IShootToMoveAc
     {
         if (context.phase == InputActionPhase.Performed)
         {
-            pauseEvent.Invoke();
+            pauseEvent?.Invoke();
         }
     }
 }

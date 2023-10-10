@@ -45,6 +45,8 @@ public class ShootToMoveGameManager : MonoBehaviour
     private void OnDisable()
     {
         playerHitGoalEvent.OnEventRaised -= OnPlayerHitGoal;
+        playerHitGoalEvent.OnEventRaised -= OnPlayerHitGoal;
+        resumeEvent.OnEventRaised -= OnPauseEvent;
     }
 
     private void OnPlayerHitGoal()
