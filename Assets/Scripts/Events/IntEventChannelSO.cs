@@ -19,7 +19,7 @@ public class IntEventChannelSO : DescriptionBaseSO
             OnEventRaised.Invoke(value);
         } else
         {
-            Debug.LogWarning("A Event was requested, there's no listener");
+            Debug.LogWarning("An int Event was requested, there's no listener");
         }
     }
 }

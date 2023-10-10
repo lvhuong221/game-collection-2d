@@ -42,18 +42,18 @@ public class SceneLoader : MonoBehaviour
     {
         _loadMenuEvent.OnLoadingRequested += LoadMenu;
         _miniGameEvent.OnLoadingRequested += LoadMiniGame;
-        _loadGameplayExtraEvent.OnLoadingRequested += LoadGameplayManager;
+        _loadGameplayExtraEvent.OnLoadingRequested += LoadGameplayExtra;
         _unloadSceneEvent.OnLoadingRequested += UnloadScene;
     }
     private void OnDisable()
     {
         _loadMenuEvent.OnLoadingRequested -= LoadMenu;
         _miniGameEvent.OnLoadingRequested -= LoadMiniGame;
-        _loadGameplayExtraEvent.OnLoadingRequested -= LoadGameplayManager;
+        _loadGameplayExtraEvent.OnLoadingRequested -= LoadGameplayExtra;
         _unloadSceneEvent.OnLoadingRequested -= UnloadScene;
     }
 
-    private void LoadGameplayManager(GameSceneSO sceneToLoad, bool showLoadingScreen = false, bool fadeScreen = false)
+    private void LoadGameplayExtra(GameSceneSO sceneToLoad, bool showLoadingScreen = false, bool fadeScreen = false)
     {
         if (_isLoading)
             return;
@@ -61,6 +61,7 @@ public class SceneLoader : MonoBehaviour
         _gameplaySceneToLoad = sceneToLoad;
         _showLoadingScreen = showLoadingScreen;
         _fadeScreen = fadeScreen;
+        _isLoading = true;
 
         LoadGameplayScene();
     }
@@ -70,13 +71,15 @@ public class SceneLoader : MonoBehaviour
         if (_isLoading)
             return;
 
+        Debug.Log("Load meny");
         _sceneToLoad = sceneToLoad;
         _showLoadingScreen = showLoadingScreen;
         _fadeScreen = fadeScreen;
+        _isLoading = true;
 
-        StartCoroutine("UnloadPreviousScene");
+        StartCoroutine(UnloadPreviousScene());
         // If go back to menu from gameplay scene
-        StartCoroutine("UnloadGameplayScene");
+        StartCoroutine(UnloadGameplayScene());
     }
 
     private void LoadMiniGame(GameSceneSO sceneToLoad, bool showLoadingScreen = false, bool fadeScreen = false)
@@ -87,8 +90,9 @@ public class SceneLoader : MonoBehaviour
         _sceneToLoad = sceneToLoad;
         _showLoadingScreen = showLoadingScreen;
         _fadeScreen = fadeScreen;
+        _isLoading = true;
 
-        StartCoroutine("UnloadPreviousScene");
+        StartCoroutine(UnloadPreviousScene());
     }
 
     private void UnloadScene(GameSceneSO sceneToUnload, bool showLoadingScreen = false, bool fadeScreen = false)
@@ -140,6 +144,8 @@ public class SceneLoader : MonoBehaviour
                 _loadedGameplayScene.sceneReference.UnLoadScene();
             }
         }
+
+
     }
 
     private void LoadNewScene()
@@ -157,6 +163,10 @@ public class SceneLoader : MonoBehaviour
         if (_showLoadingScreen)
         {
             _toggleLoadingScreen.Raise(true);
+        }
+        if (_gameplaySceneToLoad.sceneReference.IsValid())
+        {
+            //Debug.Log(_gameplaySceneToLoad.sceneReference + " valid");
         }
 
         _gameplayManagerLoadingOpHandle = _gameplaySceneToLoad.sceneReference.LoadSceneAsync(LoadSceneMode.Additive, true, 0);

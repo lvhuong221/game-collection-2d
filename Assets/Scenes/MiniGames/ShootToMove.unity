@@ -1462,6 +1462,7 @@ MonoBehaviour:
   playerHitGoalEvent: {fileID: 11400000, guid: 74eb1e743485b1941976c1408413e400, type: 2}
   pauseEvent: {fileID: 11400000, guid: 3334965740bfbdc47ad1a94b7b197488, type: 2}
   resumeEvent: {fileID: 11400000, guid: ef772364c6e6cea40b3de6d6403c08fa, type: 2}
+  sceneLoadedEvent: {fileID: 11400000, guid: b5d2b78a6e2a6144090f868beb523b56, type: 2}
   playerObject: {fileID: 11400000, guid: 0135f0d1798e5f941b077c2c308f96b2, type: 2}
   levelSO: {fileID: 11400000, guid: abf14a449ce5f4f44951ffc24b3d2197, type: 2}
   ammoLimit: {fileID: 11400000, guid: 26d730ef9258c134b824027369e7ff4b, type: 2}

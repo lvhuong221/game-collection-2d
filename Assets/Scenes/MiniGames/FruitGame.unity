@@ -2014,6 +2014,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inputReader: {fileID: 11400000, guid: 301fae4fa1956b745b9b8c4ba03066f4, type: 2}
+  pauseEvent: {fileID: 11400000, guid: 3334965740bfbdc47ad1a94b7b197488, type: 2}
+  resumeEvent: {fileID: 11400000, guid: ef772364c6e6cea40b3de6d6403c08fa, type: 2}
 --- !u!4 &1569274338
 Transform:
   m_ObjectHideFlags: 0
@@ -2778,7 +2780,7 @@ Canvas:
   m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 1
-  m_Camera: {fileID: 0}
+  m_Camera: {fileID: 751267281}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1

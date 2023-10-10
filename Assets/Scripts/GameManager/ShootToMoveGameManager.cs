@@ -13,6 +13,7 @@ public class ShootToMoveGameManager : MonoBehaviour
     [SerializeField] private VoidEventChannelSO playerHitGoalEvent;
     [SerializeField] private VoidEventChannelSO pauseEvent;
     [SerializeField] private VoidEventChannelSO resumeEvent;
+    [SerializeField] private VoidEventChannelSO sceneLoadedEvent;
 
     [Header("Variables")]
     [SerializeField] private GameObjectVariable playerObject;
@@ -26,7 +27,7 @@ public class ShootToMoveGameManager : MonoBehaviour
 
     private void Awake()
     {
-        LoadLevelOnStart();
+        Time.timeScale = 1.0f;
     }
 
     private void Start()
@@ -38,15 +39,28 @@ public class ShootToMoveGameManager : MonoBehaviour
     {
         _inputReader.pauseEvent += OnPauseInput;
         playerHitGoalEvent.OnEventRaised += OnPlayerHitGoal;
-        resumeEvent.OnEventRaised += OnPauseEvent;
+        resumeEvent.OnEventRaised += OnResumeEvent;
+        sceneLoadedEvent.OnEventRaised += OnSceneLoadedEvent;
     }
 
 
     private void OnDisable()
     {
+        _inputReader.pauseEvent -= OnPauseInput;
         playerHitGoalEvent.OnEventRaised -= OnPlayerHitGoal;
-        playerHitGoalEvent.OnEventRaised -= OnPlayerHitGoal;
-        resumeEvent.OnEventRaised -= OnPauseEvent;
+        resumeEvent.OnEventRaised -= OnResumeEvent;
+    }
+
+    private void OnDestroy()
+    {
+        unloadSceneEvent.Raise(currentLevel.sceneAsset, false, false);
+    }
+
+    private void OnSceneLoadedEvent()
+    {
+        sceneLoadedEvent.OnEventRaised -= OnSceneLoadedEvent;
+        LoadLevelOnStart();
+        //LoadLevelOnStart();
     }
 
     private void OnPlayerHitGoal()
@@ -79,6 +93,7 @@ public class ShootToMoveGameManager : MonoBehaviour
         if (currentLevel != null)
         {
             ammoLimit.Value = currentLevel.ammoLimit;
+            Debug.Log("Load scene: " + currentLevel.sceneAsset);
             loadSceneEvent.Raise(currentLevel.sceneAsset, false, false);
         } else
         {
@@ -118,7 +133,7 @@ public class ShootToMoveGameManager : MonoBehaviour
         TogglePause();
     }
 
-    private void OnPauseEvent()
+    private void OnResumeEvent()
     {
         if (_isPaused)
         {

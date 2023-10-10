@@ -9,7 +9,7 @@ using UnityEngine.AddressableAssets;
 public class GameSceneSO : DescriptionBaseSO
 {
     public GameSceneType sceneType;
-    public AssetReferenceScene sceneReference;
+    public AssetReference sceneReference;
     //public AudioCueSO musicTrack;
 
     /// <summary>
