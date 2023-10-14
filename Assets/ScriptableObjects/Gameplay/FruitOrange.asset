@@ -15,6 +15,6 @@ MonoBehaviour:
   _guid: 214f3ae419a1e3944be74a88ab84eda5
   description: 
   icon: {fileID: 21300000, guid: 3cd76f747fe4ff2468403145825c8aca, type: 3}
-  prefab: {fileID: 2723185849003508128, guid: 97b4eb2ea9562e34d88f07dcddda594d, type: 3}
+  prefab: {fileID: 2723185849003508128, guid: bcb2ded82b478f0459dbafd6faa3bf95, type: 3}
   combineResult: {fileID: 11400000, guid: f56314dcf0c7aae4c97d3eaaadf828f5, type: 2}
   score: 64

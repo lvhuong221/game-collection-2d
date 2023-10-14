@@ -9,4 +9,9 @@ public class Constants
         public static string STM_LEVEL_CLEARED = "STM_LEVEL_CLEARED";
         //public static string STM_
     }
+
+    public class FruitGame
+    {
+        public static string HIGH_SCORE = "HIGH_SCORE";
+    }
 }
